@@ -12,7 +12,6 @@ router.post("/add_course", async (req, res) => {
     if (req.user.role === "student") {
         return res.status(400).send("only instructor can pulish a course");
     }
-    console.log(req.user);
     let newCourse = new Course({
         title: data.title,
         description: data.description,
@@ -22,6 +21,17 @@ router.post("/add_course", async (req, res) => {
     let savedCourse = await newCourse.save();
 
     return res.send({"msg":"course saved successfully",savedCourse});
+})
+
+router.post("/enroll_course/:_id", async (req, res) => {
+    const { _id } = req.params;
+    if (req.user.role === "instructor") {
+        return res.status(400).send("only student can enroll a course");
+    }
+    let foundCourse = await Course.findOne({ _id }).exec();
+    foundCourse.students.push(req.user._id);
+    let savedCourse = await foundCourse.save();
+    return res.send({ "msg": "course enroll successfully", savedCourse });
 })
 
 module.exports = router;
