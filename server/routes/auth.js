@@ -4,7 +4,6 @@ const loginValidation = require("../validation").loginValidation;
 const User = require("../models").user
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
 const saltRounds = 10;
 

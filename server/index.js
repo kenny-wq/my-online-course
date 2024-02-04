@@ -1,7 +1,11 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const passport = require("passport");
 const app = express();
 const authRoute = require("./routes").auth;
+const courseRoute = require("./routes").course;
+require("dotenv").config();
+require("./config/passport");
 
 mongoose
   .connect("mongodb://localhost:27017/my-online-course-db")
@@ -16,6 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/user", authRoute);
+
+app.use("/api/course",passport.authenticate("jwt",{session: false}),courseRoute);
 
 app.listen(3000, () => {
     console.log("server listen at port 3000")
