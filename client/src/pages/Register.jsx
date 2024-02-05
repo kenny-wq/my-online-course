@@ -33,7 +33,6 @@ const Register = () => {
         // console.log(e.response);
         setErr(e.response.data);
       })
-     
   }
 
   return (

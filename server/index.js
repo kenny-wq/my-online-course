@@ -24,6 +24,6 @@ app.use("/api/user", authRoute);
 
 app.use("/api/course",passport.authenticate("jwt",{session: false}),courseRoute);
 
-app.listen(3000, () => {
-    console.log("server listen at port 3000")
+app.listen(8000, () => {
+    console.log("server listen at port 8000")
 })
