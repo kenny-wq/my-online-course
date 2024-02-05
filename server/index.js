@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
+const cors = require("cors");
 const app = express();
 const authRoute = require("./routes").auth;
 const courseRoute = require("./routes").course;
@@ -18,7 +19,7 @@ mongoose
 
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
-
+app.use(cors());
 app.use("/api/user", authRoute);
 
 app.use("/api/course",passport.authenticate("jwt",{session: false}),courseRoute);
