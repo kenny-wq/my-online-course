@@ -19,8 +19,7 @@ const Login = () => {
   function handleSubmit() {
       AuthService.login(email,password).then(
         (response) => {
-          console.log(response);
-          setCurrentUser(response.data.user);
+          setCurrentUser(response.data);
           localStorage.setItem("user",JSON.stringify(response.data))
           window.alert("登入成功，您即將被導向到主頁面");
           navigate("/");

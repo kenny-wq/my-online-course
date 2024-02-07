@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
-import axios from "axios";
 import AuthService from "../services/Auth.service";
 
 const Nav = () => {
@@ -41,22 +40,21 @@ const Nav = () => {
                 <Link onClick={handleLogout} to="/" className="nav-link">登出</Link>
               </li>}
               {currentUser&&<li className="nav-item">
-                <Link to="login" className="nav-link">個人頁面</Link>
+                <Link to="/profile" className="nav-link">個人頁面</Link>
               </li>}
               {currentUser&&<li className="nav-item">
-                <Link to="login" className="nav-link">課程頁面</Link>
+                <Link to="/course" className="nav-link">課程頁面</Link>
               </li>}
-              {currentUser&&currentUser.role==="student"&&<li className="nav-item">
-                <Link to="login" className="nav-link">註冊課程</Link>
+              {currentUser&&currentUser.user.role==="student"&&<li className="nav-item">
+                <Link to="/enroll_course" className="nav-link">註冊課程</Link>
               </li>}
-              {currentUser&&currentUser.role==="instructor"&&<li className="nav-item">
-                <Link to="login" className="nav-link">新增課程</Link>
+              {currentUser&&currentUser.user.role==="instructor"&&<li className="nav-item">
+                <Link to="/add_course" className="nav-link">新增課程</Link>
               </li>}
             </ul>
           </div>
         </div>
       </nav>
-
       <Outlet />
     </>
   );
