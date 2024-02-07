@@ -26,11 +26,11 @@ router.post("/register", async (req, res) => {
     })
     try {
         let savedUser = await newUser.save();
-        return res.send({msg: "user is successfully saved", savedUser});
+        return res.send({ msg: "user is successfully saved", savedUser });
     } catch (e) {
         return res.status(500).send(e);
     }
-})
+});
 
 router.post("/login", async (req, res) => {
     const data = req.body;
@@ -40,14 +40,15 @@ router.post("/login", async (req, res) => {
     }
     let loginUser = await User.findOne({ email: data.email }).exec();
     if (!loginUser) {
-      return res.status(400).send("user doesn't exist");
+        return res.status(400).send("user doesn't exist");
     }
     if (!bcrypt.compareSync(data.password, loginUser.password)) {
         return res.status(400).send("password not correct");
     }
     const tokenObject = { _id: loginUser._id, email: loginUser.email };
     const token = jwt.sign(tokenObject, process.env.PASSPORT_SECRET);
-    return res.send({ msg: "login success", user: loginUser, token: "JWT "+token });
-})
+    return res.send({ msg: "login success", user: loginUser, token: "JWT " + token });
+});
+
 
 module.exports = router;

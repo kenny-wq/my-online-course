@@ -1,8 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import AuthService from '../services/Auth.service';
 import { useNavigate } from 'react-router-dom';
+import UserContext from '../contexts/UserContext';
 
 const Login = () => {
+  const { setCurrentUser } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [err, setErr] = useState("");
@@ -15,9 +17,10 @@ const Login = () => {
     setPassword(e.target.value);
   }
   function handleSubmit() {
-      AuthService.login(email, password).then(
+      AuthService.login(email,password).then(
         (response) => {
           console.log(response);
+          setCurrentUser(response.data.user);
           localStorage.setItem("user",JSON.stringify(response.data))
           window.alert("登入成功，您即將被導向到主頁面");
           navigate("/");
@@ -26,7 +29,6 @@ const Login = () => {
         console.log(e);
         setErr(e.response.data);
       })
-     
   }
   return (
     <div className='p-5'>

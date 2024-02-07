@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
+import UserContext from "../contexts/UserContext";
+import axios from "axios";
+import AuthService from "../services/Auth.service";
 
 const Nav = () => {
+  const { currentUser, setCurrentUser } = useContext(UserContext);
+
+  function handleLogout() {
+    setCurrentUser(null);
+    AuthService.logout();
+  }
   return (
     <>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -22,12 +31,27 @@ const Nav = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+              {!currentUser&&<li className="nav-item">
                 <Link to="/register" className="nav-link active" aria-current="page">註冊會員</Link>
-              </li>
-              <li className="nav-item">
-                <Link to="login" className="nav-link">會員登入</Link>
-              </li>
+              </li>}
+              {!currentUser&&<li className="nav-item">
+                <Link to="/login" className="nav-link">會員登入</Link>
+              </li>}
+              {currentUser&&<li className="nav-item">
+                <Link onClick={handleLogout} to="/" className="nav-link">登出</Link>
+              </li>}
+              {currentUser&&<li className="nav-item">
+                <Link to="login" className="nav-link">個人頁面</Link>
+              </li>}
+              {currentUser&&<li className="nav-item">
+                <Link to="login" className="nav-link">課程頁面</Link>
+              </li>}
+              {currentUser&&currentUser.role==="student"&&<li className="nav-item">
+                <Link to="login" className="nav-link">註冊課程</Link>
+              </li>}
+              {currentUser&&currentUser.role==="instructor"&&<li className="nav-item">
+                <Link to="login" className="nav-link">新增課程</Link>
+              </li>}
             </ul>
           </div>
         </div>
