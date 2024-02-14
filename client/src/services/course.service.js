@@ -16,6 +16,19 @@ class CourseService{
           },
         });
     }
+    enrollCourse(courseId) {
+        let token;
+        if (localStorage.getItem("user")) {
+          token = JSON.parse(localStorage.getItem("user")).token;
+        } else {
+          token = "";
+        }
+        return axios.post(apiURL + "/enroll_course/" + courseId,{},{
+          headers: {
+            Authorization: token,
+          },
+        });
+    }
 };
 
 export default new CourseService();

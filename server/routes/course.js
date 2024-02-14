@@ -29,9 +29,15 @@ router.post("/enroll_course/:_id", async (req, res) => {
         return res.status(400).send("only student can enroll a course");
     }
     let foundCourse = await Course.findOne({ _id }).exec();
-    foundCourse.students.push(req.user._id);
-    let savedCourse = await foundCourse.save();
-    return res.send({ msg: "course enroll successfully", savedCourse });
+    if (!foundCourse.students.includes(req.user._id)) { // if user not include
+        foundCourse.students.push(req.user._id); // push user in
+        let savedCourse = await foundCourse.save();
+        return res.send({ msg: "course enroll successfully", savedCourse });
+    }
+    else {
+        return res.send({ msg: "user already enroll"});
+    }
+    
 })
 
 router.get("/search_course/:courseName", async (req, res) => {
