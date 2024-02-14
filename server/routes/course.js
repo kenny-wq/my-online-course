@@ -7,7 +7,7 @@ router.post("/add_course", async (req, res) => {
     const data = req.body;
     let {error} = courseValidation(data);
     if (error) {
-        return res.status(400).send({"msg":"format error",error});
+        return res.status(400).send({msg:"format error",error});
     }
     if (req.user.role === "student") {
         return res.status(400).send("only instructor can pulish a course");
@@ -20,7 +20,7 @@ router.post("/add_course", async (req, res) => {
     });
     let savedCourse = await newCourse.save();
 
-    return res.send({"msg":"course saved successfully",savedCourse});
+    return res.send({msg:"course saved successfully",savedCourse});
 })
 
 router.post("/enroll_course/:_id", async (req, res) => {
@@ -31,7 +31,16 @@ router.post("/enroll_course/:_id", async (req, res) => {
     let foundCourse = await Course.findOne({ _id }).exec();
     foundCourse.students.push(req.user._id);
     let savedCourse = await foundCourse.save();
-    return res.send({ "msg": "course enroll successfully", savedCourse });
+    return res.send({ msg: "course enroll successfully", savedCourse });
+})
+
+router.get("/search_course/:courseName", async (req, res) => {
+    let courseName = req.params.courseName;
+    let foundCourse = await Course.findOne({ title: courseName }).populate("instructor",["name","email"]).exec();
+    if (foundCourse !== null) {
+        return res.send({ msg: "course found", foundCourse });
+    }
+    return res.send({ msg: "course not found", foundCourse: null });
 })
 
 module.exports = router;
