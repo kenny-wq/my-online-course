@@ -55,4 +55,10 @@ router.get("/student_course/:_id", async (req, res) => {
     return res.send({ msg: 'found courses', foundCourses });
 })
 
+router.get("/instructor_course/:_id", async (req, res) => {
+    let { _id } = req.params;
+    let foundCourses = await Course.find({ instructor: _id }).populate("instructor", ["name", "email"]).exec();
+    return res.send({ msg: "found courses", foundCourses });
+})
+
 module.exports = router;
