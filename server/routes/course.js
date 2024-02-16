@@ -49,4 +49,10 @@ router.get("/search_course/:courseName", async (req, res) => {
     return res.send({ msg: "course not found", foundCourse: null });
 })
 
+router.get("/student_course/:_id", async (req, res) => {
+    let { _id } = req.params;
+    let foundCourses = await Course.find({ students: _id }).populate("instructor", ["name", "email"]).exec();
+    return res.send({ msg: 'found courses', foundCourses });
+})
+
 module.exports = router;

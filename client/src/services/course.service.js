@@ -29,6 +29,20 @@ class CourseService{
           },
         });
     }
+    studentCourse(studentId) {
+      let token;
+      if (localStorage.getItem("user")) {
+        token = JSON.parse(localStorage.getItem("user")).token;
+      } else {
+        token = "";
+      }
+        
+      return axios.get(apiURL + "/student_course/" + studentId, {
+        headers: {
+          Authorization: token,
+        },
+      });
+    }
 };
 
 export default new CourseService();

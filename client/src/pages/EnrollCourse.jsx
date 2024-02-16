@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import CourseService from '../services/course.service';
+import { useNavigate } from 'react-router-dom';
 
 const EnrollCourse = () => {
   const [searchWord, setSearchWord] = useState("");
   const [searchResult, setSearchResult] = useState([]);
+  const navigate = useNavigate();
 
   function handleSearchWordChange(e) {
     setSearchWord(e.target.value);
@@ -14,7 +16,13 @@ const EnrollCourse = () => {
   }
   async function handleEnrollButtonClick(courseId) {
     let result = await CourseService.enrollCourse(courseId);
-    console.log(result);
+    if (result.data.msg === "user already enroll") {
+      window.alert("課程已經註冊過");
+    }
+    else if (result.data.msg === "course enroll successfully") {
+      window.alert("課程已經註冊，現在導向至課程頁面");
+      navigate("/course");
+    } 
   }
   return (
     <>

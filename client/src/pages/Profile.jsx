@@ -3,7 +3,6 @@ import UserContext from '../contexts/UserContext'
 
 const Profile = () => {
     const { currentUser } = useContext(UserContext);
-    console.log(currentUser);
 
   return (
       <div className='p-3'>
