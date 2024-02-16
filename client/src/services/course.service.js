@@ -57,6 +57,24 @@ class CourseService{
         },
       });
     }
+    addCourse(title, description, price) {
+      let token;
+      if (localStorage.getItem("user")) {
+        token = JSON.parse(localStorage.getItem("user")).token;
+      } else {
+        token = "";
+      }
+
+      return axios.post(
+        apiURL + "/add_course",
+        { title, description, price },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+    }
 };
 
 export default new CourseService();

@@ -7,7 +7,7 @@ router.post("/add_course", async (req, res) => {
     const data = req.body;
     let {error} = courseValidation(data);
     if (error) {
-        return res.status(400).send({msg:"format error",error});
+        return res.status(400).send({msg:"format error",error:error.details[0].message});
     }
     if (req.user.role === "student") {
         return res.status(400).send("only instructor can pulish a course");
