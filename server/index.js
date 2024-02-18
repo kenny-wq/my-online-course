@@ -22,7 +22,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/api/user", authRoute);
 
-app.use("/api/course",passport.authenticate("jwt",{session: false}),courseRoute);
+app.use("/api/course", passport.authenticate("jwt", { session: false }), courseRoute);
+
+app.get("/", (req, res) => {
+  return res.send({ msg: "test route" });
+})
 
 app.listen(8000, () => {
     console.log("server listen at port 8000")
