@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import CourseService from '../services/Course.service';
+import CourseService from '../services/course.service';
 import UserContext from '../contexts/UserContext';
 
 const Course = () => {

@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link, Outlet } from "react-router-dom";
 import UserContext from "../contexts/UserContext";
-import AuthService from "../services/Auth.service";
+import AuthService from "../services/auth.service";
 
 const Nav = () => {
   const { currentUser, setCurrentUser } = useContext(UserContext);
