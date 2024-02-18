@@ -9,7 +9,7 @@ require("dotenv").config();
 require("./config/passport");
 
 mongoose
-  .connect("mongodb://localhost:27017/my-online-course-db")
+  .connect(process.env.MONGODB_URL)
   .then(() => {
     console.log("Connecting to mongodb...");
   })
