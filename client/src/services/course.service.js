@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = "https://my-online-course-backend.onrender.com/api/course";
+const apiURL = "https://my-online-course-backend.onrender.com:8000/api/course";
 
 class CourseService{
     searchCourse(courseName) {
