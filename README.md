@@ -4,12 +4,12 @@
 - live demo: https://my-online-course-frontend.onrender.com/
 ### test account
 student
-user1@email.com
-123456
+email:user1@email.com
+password:123456
 
 instructor
-user2@email.com
-123456
+email:user2@email.com
+password:123456
 ### screenshot
 - home page
 ![image](https://github.com/kenny-wq/my-online-course/assets/80817584/7e68b5f4-3c92-4342-afea-98cd80769e66)
