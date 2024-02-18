@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const apiURL = "http://localhost:8000/api/user";
+const apiURL = "https://my-online-course-backend.onrender.com/api/user";
 
 class AuthService{
     register(username,email,password,role) {
