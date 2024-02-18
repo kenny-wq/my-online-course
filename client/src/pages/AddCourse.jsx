@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import CourseService from '../services/course.service';
+import CourseService from '../services/Course.service';
 import { useNavigate } from 'react-router-dom';
 
 const AddCourse = () => {
